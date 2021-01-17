@@ -62,7 +62,7 @@ use MicroRouter\Contract\Exception\MethodNotAllowedInterface;
 use MicroRouter\Contract\Exception\ResourceNotFoundInterface;
 use MicroRouter\Matcher;
 
-/** @var \MicroRouter\Contract\RouteCollectionInterface  $routes */
+/** @var \MicroRouter\Contract\RouteCollectionInterface $routes */
 $routes = require __DIR__ . '/path/to/routes.php';
 
 /** @var Psr\SimpleCache\CacheInterface $cache */
