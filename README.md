@@ -18,28 +18,28 @@ composer require chi-teck/micro-router
 ```php
 $routes = new RouteCollection();
 
-$routes[] = new Route(
+$routes['article.view'] = new Route(
     methods: ['GET'],
     path: '/article/{id}',
     requirements: ['id' => '\d+'],
     handler: ArticleViewHandler::class,
 );
 
-$routes[] = new Route(
+$routes['article.update'] = new Route(
     methods: ['PUT'],
     path: '/article/{id}',
     requirements: ['id' => '\d+'],
     handler: ArticleUpdateHandler::class,
 );
 
-$routes[] = new Route(
+$routes['article.delete'] = new Route(
     methods: ['DELETE'],
     path: '/article/{id}',
     requirements: ['id' => '\d+'],
     handler: ArticleDeleteHandler::class,
 );
 
-$routes[] = new Route(
+$routes['article.create'] = new Route(
     methods: ['POST'],
     path: '/article',
     handler: ArticleCreateHandler::class,
@@ -49,10 +49,10 @@ $routes[] = new Route(
 Alternatively, the routes can be defined via `create` factory method.
 ```php
 $routes = new RouteCollection();
-$routes[] = Route::create('GET', '/article/{id:\d+}', ArticleViewHandler::class);
-$routes[] = Route::create('PUT', '/article/{id:\d+}', ArticleUpdateHandler::class);
-$routes[] = Route::create('DELETE', '/article/{id:\d+}', ArticleDeleteHandler::class);
-$routes[] = Route::create('POST', '/article', ArticleCreateHandler::class);
+$routes['article.view'] = Route::create('GET', '/article/{id:\d+}', ArticleViewHandler::class);
+$routes['article.update'] = Route::create('PUT', '/article/{id:\d+}', ArticleUpdateHandler::class);
+$routes['article.delete'] = Route::create('DELETE', '/article/{id:\d+}', ArticleDeleteHandler::class);
+$routes['article.create'] = Route::create('POST', '/article', ArticleCreateHandler::class);
 ```
 
 ## Handle request
