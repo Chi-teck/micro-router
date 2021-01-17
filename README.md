@@ -3,8 +3,8 @@ A simple and fast routing system for PSR-7 requests.
 
 ## Requirements
 * PHP 8.0+
-* psr/http-message implementation
-* psr/simple-cache implementation
+* [psr/http-message provider](https://packagist.org/providers/psr/http-message-implementation)
+* [psr/simple-cache provider](https://packagist.org/providers/psr/simple-cache-implementation)
 
 ## Installation
 ```sh
@@ -13,7 +13,7 @@ composer require chi-teck/micro-router
 
 ## Usage
 
-### Define routes.
+### Define routes
 
 ```php
 $routes = new RouteCollection();
