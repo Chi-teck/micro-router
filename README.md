@@ -57,14 +57,10 @@ $routes['article.create'] = Route::create('POST', '/article', ArticleCreateHandl
 
 ## Handle request
 ```php
-<?php
-
 use MicroRouter\Compiler;
 use MicroRouter\Contract\Exception\MethodNotAllowedInterface;
 use MicroRouter\Contract\Exception\ResourceNotFoundInterface;
 use MicroRouter\Matcher;
-
-require __DIR__ . '/../vendor/autoload.php';
 
 /** @var \MicroRouter\Contract\RouteCollectionInterface  $routes */
 $routes = require __DIR__ . '/path/to/routes.php';
