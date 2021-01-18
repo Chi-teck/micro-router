@@ -28,4 +28,9 @@ final class RoutingResult implements RoutingResultInterface
     {
         return $this->parameters;
     }
+
+    public function withParameters(array $parameters): self
+    {
+        return new self($this->routeName, $this->route, $parameters);
+    }
 }
