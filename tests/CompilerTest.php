@@ -7,9 +7,9 @@ use MicroRouter\Compiler;
 use MicroRouter\Exception\CompilerException;
 use MicroRouter\Route;
 use MicroRouter\RouteCollection;
+use MicroRouter\Tests\Cache\MemoryCache;
 use MicroRouter\Tests\Cache\NullCache;
 use PHPUnit\Framework\TestCase;
-use Psr\SimpleCache\CacheInterface;
 
 final class CompilerTest extends TestCase
 {
@@ -139,34 +139,7 @@ final class CompilerTest extends TestCase
 
     public function testCaching(): void
     {
-        // phpcs:disable SlevomatCodingStandard.TypeHints
-        $cache = new class implements CacheInterface {
-
-            private array $data = [];
-
-            public function get($key, $default = null)
-            {
-                return $this->data[$key] ?? null;
-            }
-
-            public function set($key, $value, $ttl = null)
-            {
-                $this->data[$key] = $value;
-            }
-
-            public function delete($key) {}
-
-            public function clear() {}
-
-            public function getMultiple($keys, $default = null) {}
-
-            public function setMultiple($values, $ttl = null) {}
-
-            public function deleteMultiple($keys) {}
-
-            public function has($key) {}
-        };
-        // phpcs:enable
+        $cache = new MemoryCache();
 
         $compiler = new Compiler($cache);
         $routes_1 = new RouteCollection();

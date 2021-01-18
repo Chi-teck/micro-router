@@ -11,7 +11,7 @@ interface RouteCollectionInterface extends \IteratorAggregate, \Countable, \Arra
 
     public function has(string $name): bool;
 
-    public function add(RouteInterface $route, ?string $name = null, int $priority = 0): void;
+    public function add(RouteInterface $route, ?string $name = null): void;
 
     public function remove(string $name): void;
 

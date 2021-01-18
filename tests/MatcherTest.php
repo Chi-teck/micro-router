@@ -14,6 +14,7 @@ use MicroRouter\Matcher;
 use MicroRouter\Route;
 use MicroRouter\RouteCollection;
 use MicroRouter\RoutingResult;
+use MicroRouter\Tests\Cache\MemoryCache;
 use MicroRouter\Tests\Cache\NullCache;
 use Nyholm\Psr7\ServerRequest;
 use PHPUnit\Framework\TestCase;
@@ -252,6 +253,25 @@ final class MatcherTest extends TestCase
 
         $expected_methods = ['DELETE', 'GET', 'POST', 'PUT'];
         self::assertException(new MethodNotAllowedException($expected_methods), $request, $routes);
+    }
+
+    public function testCachingUnnamedRoutes(): void
+    {
+        $compiler = new Compiler(new MemoryCache());
+        $matcher = new Matcher($compiler);
+        $request = new ServerRequest('GET', 'https://example.com/test');
+        $route = new Route(['GET'], '/test', 'test');
+
+        $routes_1 = new RouteCollection();
+        $routes_1->add($route);
+        $result_1 = $matcher->match($request, $routes_1);
+
+        $routes_2 = new RouteCollection();
+        $routes_2->add($route);
+        $result_2 = $matcher->match($request, $routes_2);
+
+        self::assertTrue($routes_2->has($result_1->getRouteName()));
+        self::assertTrue($routes_1->has($result_2->getRouteName()));
     }
 
     private function assertMatchResult(?RoutingResult $expectedResult, string $path, RouteCollection $routes): void

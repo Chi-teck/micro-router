@@ -56,7 +56,7 @@ final class RouteCollectionTest extends TestCase
         $route = new Route(['GET'], '/example', 'ExampleHandler');
         $collection->add($route);
 
-        self::assertMatchesRegularExpression('/^unnamed_\d+$/', $collection->getIterator()->key());
+        self::assertMatchesRegularExpression('/^unnamed_.{32}$/', $collection->getIterator()->key());
         self::assertSame($route, $collection->getIterator()->current());
 
         // -- Named route (array access).
@@ -71,7 +71,7 @@ final class RouteCollectionTest extends TestCase
         $route = new Route(['GET'], '/example', 'ExampleHandler');
         $collection[] = $route;
 
-        self::assertMatchesRegularExpression('/^unnamed_\d+$/', $collection->getIterator()->key());
+        self::assertMatchesRegularExpression('/^unnamed_.{32}$/', $collection->getIterator()->key());
         self::assertSame($route, $collection->getIterator()->current());
     }
 

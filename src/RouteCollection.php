@@ -48,9 +48,11 @@ final class RouteCollection implements RouteCollectionInterface
         return isset($this->routes[$name]);
     }
 
-    public function add(RouteInterface $route, ?string $name = null, int $priority = 0): void
+    public function add(RouteInterface $route, ?string $name = null): void
     {
-        $name ??= self::UNNAMED_ROUTE_PREFIX . \mt_rand();
+        // The name of unnamed route must remain the same across multiple
+        // instances of the same collection.
+        $name ??= self::UNNAMED_ROUTE_PREFIX . \md5(\serialize($route));
         $this->routes[$name] = $route;
     }
 
