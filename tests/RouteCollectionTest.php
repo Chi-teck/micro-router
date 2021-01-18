@@ -13,8 +13,15 @@ final class RouteCollectionTest extends TestCase
     public function testConstructor(): void
     {
         $routes = ['example' => new Route(['GET'], '/example', 'ExampleHandler')];
-        $collection = new RouteCollection($routes);
-        self::assertRouteCollection($routes, $collection);
+        self::assertRouteCollection($routes, new RouteCollection($routes));
+
+        // Collection with unnamed routes.
+        $route = new Route(['GET'], '/example', 'ExampleHandler');
+        $collection = new RouteCollection([$route]);
+
+        self::assertCount(1, $collection);
+        self::assertSame($route, $collection->getIterator()->current());
+        self::assertMatchesRegularExpression('/^unnamed_.{32}$/', $collection->getIterator()->key());
     }
 
     public function testGetRoute(): void

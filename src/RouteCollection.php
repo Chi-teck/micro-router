@@ -9,8 +9,10 @@ use MicroRouter\Exception\RouteNotFoundException;
 
 final class RouteCollection implements RouteCollectionInterface
 {
-    public function __construct(private array $routes = []) {
-        foreach ($this->routes as $name => $route) {
+    private array $routes = [];
+
+    public function __construct(array $routes = []) {
+        foreach ($routes as $name => $route) {
             // @todo test this.
             $this->add($route, \is_int($name) ? null : $name);
         }
