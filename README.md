@@ -57,7 +57,6 @@ $routes['article.create'] = Route::create('POST', '/article', ArticleCreateHandl
 
 ## Handle request
 ```php
-use MicroRouter\Compiler;
 use MicroRouter\Contract\Exception\MethodNotAllowedInterface;
 use MicroRouter\Contract\Exception\ResourceNotFoundInterface;
 use MicroRouter\Matcher;
@@ -73,10 +72,10 @@ $matcher = Matcher::create($cache);
 $request = $request_factory->createServerRequest('GET', '/article/123');
 try {
     $result = $matcher->match($request, $routes);
-    $response = \call_user_func_array(
-        $result->getRoute()->getHandler(),
-        $result->getParameters(),
-    );
+    $handler = $result->getRoute()->getHandler();
+    // Depending on handler type (closure, service ID, etc) you may need to
+    // resolve the callable before invoking.
+    $response = $handler(...$result->getParameters());
 }
 catch (ResourceNotFoundInterface) {
     /** @var \Psr\Http\Message\ResponseFactoryInterface $response_factory */
