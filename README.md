@@ -66,8 +66,7 @@ use MicroRouter\Matcher;
 $routes = require __DIR__ . '/path/to/routes.php';
 
 /** @var Psr\SimpleCache\CacheInterface $cache */
-$compiler = new Compiler($cache);
-$matcher = new Matcher($compiler);
+$matcher = Matcher::create($cache);
 
 /** @var \Psr\Http\Message\ServerRequestFactoryInterface $request_factory */
 // In real application the request is created from PHP super globals.

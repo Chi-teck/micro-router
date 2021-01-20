@@ -25,7 +25,7 @@ final class MatcherTest extends TestCase
 
     public function setUp(): void
     {
-        $this->matcher = new Matcher(new Compiler(new NullCache()));
+        $this->matcher = Matcher::create(new NullCache());
     }
 
     public function testRootPath(): void

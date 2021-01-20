@@ -9,10 +9,15 @@ use MicroRouter\Contract\RoutingResultInterface;
 use MicroRouter\Exception\MethodNotAllowedException;
 use MicroRouter\Exception\ResourceNotFoundException;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\SimpleCache\CacheInterface;
 
 final class Matcher implements MatcherInterface
 {
     public function __construct(private Compiler $compiler) {}
+
+    public static function create(CacheInterface $cache, string $cacheKey = 'route_map'): self {
+        return new self(new Compiler($cache, $cacheKey));
+    }
 
     /**
      * @throws \MicroRouter\Contract\Exception\ResourceNotFoundInterface
