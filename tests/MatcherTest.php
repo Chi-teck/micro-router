@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace MicroRouter\Tests;
 
-use MicroRouter\Compiler;
 use MicroRouter\Contract\Exception\MatcherExceptionInterface;
 use MicroRouter\Contract\Exception\MethodNotAllowedInterface;
 use MicroRouter\Contract\Exception\ResourceNotFoundInterface;
@@ -257,8 +256,7 @@ final class MatcherTest extends TestCase
 
     public function testCachingUnnamedRoutes(): void
     {
-        $compiler = new Compiler(new MemoryCache());
-        $matcher = new Matcher($compiler);
+        $matcher = Matcher::create(new MemoryCache());
         $request = new ServerRequest('GET', 'https://example.com/test');
         $route = new Route(['GET'], '/test', 'test');
 

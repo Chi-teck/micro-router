@@ -17,7 +17,7 @@ final class CompilerTest extends TestCase
 
     public function setUp(): void
     {
-        $this->compiler = new Compiler(new NullCache());
+        $this->compiler = new Compiler(new NullCache(), 'route_map');
     }
 
     public function testSimplePath(): void
@@ -141,7 +141,7 @@ final class CompilerTest extends TestCase
     {
         $cache = new MemoryCache();
 
-        $compiler = new Compiler($cache);
+        $compiler = new Compiler($cache, 'route_map');
         $routes_1 = new RouteCollection();
         $routes_1['foo'] = Route::create('GET', '/foo', 'test');
         $map_1 = $compiler->compile($routes_1);

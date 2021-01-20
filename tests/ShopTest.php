@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace MicroRouter\Tests;
 
-use MicroRouter\Compiler;
 use MicroRouter\Contract\Exception\MatcherExceptionInterface;
 use MicroRouter\Matcher;
 use MicroRouter\Route;
@@ -24,7 +23,7 @@ final class ShopTest extends TestCase
 
     public function setUp(): void
     {
-        $this->matcher = new Matcher(new Compiler(new NullCache()));
+        $this->matcher = Matcher::create(new NullCache());
     }
 
     /**

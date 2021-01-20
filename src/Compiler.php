@@ -12,7 +12,7 @@ final class Compiler
 {
     public function __construct(
         private CacheInterface $cache,
-        private string $cacheKey = 'route_map',
+        private string $cacheKey,
     ) {}
 
     /**
