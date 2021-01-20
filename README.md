@@ -64,7 +64,7 @@ use MicroRouter\Matcher;
 /** @var \MicroRouter\Contract\RouteCollectionInterface $routes */
 $routes = require __DIR__ . '/path/to/routes.php';
 
-/** @var Psr\SimpleCache\CacheInterface $cache */
+/** @var \Psr\SimpleCache\CacheInterface $cache */
 $matcher = Matcher::create($cache);
 
 /** @var \Psr\Http\Message\ServerRequestFactoryInterface $request_factory */
