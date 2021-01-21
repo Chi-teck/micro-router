@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace MicroRouter\Contract;
 
-interface RouteInterface extends \Stringable
+interface RouteInterface
 {
     public function getMethods(): array;
 

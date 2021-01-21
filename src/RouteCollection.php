@@ -7,7 +7,7 @@ use MicroRouter\Contract\RouteCollectionInterface;
 use MicroRouter\Contract\RouteInterface;
 use MicroRouter\Exception\RouteNotFoundException;
 
-final class RouteCollection implements RouteCollectionInterface
+final class RouteCollection implements RouteCollectionInterface, \Stringable
 {
     private array $routes = [];
 

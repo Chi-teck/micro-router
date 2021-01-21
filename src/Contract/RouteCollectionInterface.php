@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace MicroRouter\Contract;
 
-interface RouteCollectionInterface extends \IteratorAggregate, \Countable, \ArrayAccess, \Stringable
+interface RouteCollectionInterface extends \IteratorAggregate, \Countable, \ArrayAccess
 {
     public const UNNAMED_ROUTE_PREFIX = 'unnamed_';
 

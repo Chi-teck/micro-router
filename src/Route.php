@@ -5,7 +5,7 @@ namespace MicroRouter;
 
 use MicroRouter\Contract\RouteInterface;
 
-final class Route implements RouteInterface
+final class Route implements RouteInterface, \Stringable
 {
     public function __construct(
         private array $methods,
