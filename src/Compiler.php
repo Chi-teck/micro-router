@@ -8,11 +8,14 @@ use MicroRouter\Contract\RouteInterface;
 use MicroRouter\Exception\CompilerException;
 use Psr\SimpleCache\CacheInterface;
 
+/**
+ * {@internal}
+ */
 final class Compiler
 {
     public function __construct(
         private CacheInterface $cache,
-        private string $cacheKey,
+        private string $cacheKeyPrefix,
     ) {}
 
     /**
@@ -25,10 +28,11 @@ final class Compiler
      */
     public function compile(RouteCollectionInterface $routes): array
     {
-        $map = $this->cache->get($this->cacheKey);
+        $cache_key = $this->cacheKeyPrefix . '.' . $routes->getName();
+        $map = $this->cache->get($cache_key);
         if ($map === null) {
             $map = $this->doCompile($routes);
-            $this->cache->set($this->cacheKey, $map);
+            $this->cache->set($cache_key, $map);
         }
         return $map;
     }

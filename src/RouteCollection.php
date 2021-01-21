@@ -11,11 +11,11 @@ final class RouteCollection implements RouteCollectionInterface, \Stringable
 {
     private array $routes = [];
 
-    public function __construct(array $routes = []) {
-        foreach ($routes as $name => $route) {
-            // @todo test this.
-            $this->add($route, \is_int($name) ? null : $name);
-        }
+    public function __construct(private string $name = 'default') {}
+
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     /**

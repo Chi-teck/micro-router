@@ -10,18 +10,13 @@ use PHPUnit\Framework\TestCase;
 
 final class RouteCollectionTest extends TestCase
 {
-    public function testConstructor(): void
+    public function testConstructorAndNameGetter(): void
     {
-        $routes = ['example' => new Route(['GET'], '/example', 'ExampleHandler')];
-        self::assertRouteCollection($routes, new RouteCollection($routes));
+        $collection = new RouteCollection();
+        self::assertSame('default', $collection->getName());
 
-        // Collection with unnamed routes.
-        $route = new Route(['GET'], '/example', 'ExampleHandler');
-        $collection = new RouteCollection([$route]);
-
-        self::assertCount(1, $collection);
-        self::assertSame($route, $collection->getIterator()->current());
-        self::assertMatchesRegularExpression('/^unnamed_.{32}$/', $collection->getIterator()->key());
+        $collection = new RouteCollection('example');
+        self::assertSame('example', $collection->getName());
     }
 
     public function testGetRoute(): void
@@ -109,7 +104,11 @@ final class RouteCollectionTest extends TestCase
             'article.edit' => new Route(['PUT'], '/article/{id}/edit', 'ArticleEditController'),
             'article.delete' => new Route(['DELETE'], '/article/{id}/delete', 'ArticleDeleteController'),
         ];
-        $collection = new RouteCollection($routes);
+
+        $collection = new RouteCollection();
+        $collection['article.view'] = $routes['article.view'];
+        $collection['article.edit'] = $routes['article.edit'];
+        $collection['article.delete'] = $routes['article.delete'];
 
         foreach ($collection as $name => $route) {
             self::assertSame($routes[$name], $route);
@@ -185,9 +184,9 @@ final class RouteCollectionTest extends TestCase
 
     private static function createCollection(): RouteCollection
     {
-        return new RouteCollection(
-            ['example' => new Route(['GET'], '/example', 'ExampleHandler')],
-        );
+        $collection = new RouteCollection();
+        $collection['example'] = new Route(['GET'], '/example', 'ExampleHandler');
+        return $collection;
     }
 
     private static function assertRouteCollection(array $expectedRoutes, RouteCollection $collection): void
