@@ -9,6 +9,8 @@ use MicroRouter\Exception\RouteNotFoundException;
 
 final class RouteCollection implements RouteCollectionInterface, \Stringable
 {
+    private const UNNAMED_ROUTE_PREFIX = 'unnamed_';
+
     private array $routes = [];
 
     public function __construct(private string $name = 'default') {}
@@ -54,7 +56,7 @@ final class RouteCollection implements RouteCollectionInterface, \Stringable
     {
         // The name of unnamed route must remain the same across multiple
         // instances of the same collection.
-        $name ??= 'unnamed_' . \md5(\serialize($route));
+        $name ??= self::UNNAMED_ROUTE_PREFIX . \md5(\serialize($route));
         $this->routes[$name] = $route;
     }
 

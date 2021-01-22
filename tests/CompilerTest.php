@@ -139,9 +139,8 @@ final class CompilerTest extends TestCase
 
     public function testCaching(): void
     {
-        $cache = new MemoryCache();
+        $compiler = new Compiler(new MemoryCache(), 'route_map');
 
-        $compiler = new Compiler($cache, 'route_map');
         $routes_1 = new RouteCollection();
         $routes_1['foo'] = Route::create('GET', '/foo', 'test');
         $map_1 = $compiler->compile($routes_1);
@@ -152,5 +151,16 @@ final class CompilerTest extends TestCase
 
         // Second collection must not be actually compiled because of cache.
         self::assertSame($map_1, $map_2);
+    }
+
+    public function testCacheKeyLengthValidation(): void
+    {
+        $compiler = new Compiler(new MemoryCache(), 'route_map');
+
+        $map = $compiler->compile(new RouteCollection('default'));
+        self::assertSame(['static' => [], 'full' => []], $map);
+
+        $this->expectExceptionObject(new CompilerException('Wrong cache key'));
+        $compiler->compile(new RouteCollection('wrong name'));
     }
 }

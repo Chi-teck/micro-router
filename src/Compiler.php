@@ -29,6 +29,12 @@ final class Compiler
     public function compile(RouteCollectionInterface $routes): array
     {
         $cache_key = $this->cacheKeyPrefix . '.' . $routes->getName();
+
+        // @see https://www.php-fig.org/psr/psr-16/#12-definitions
+        if (!\preg_match('/^[._0-9a-z]{1,64}$/i', $cache_key)) {
+            throw new CompilerException('Wrong cache key.');
+        }
+
         $map = $this->cache->get($cache_key);
         if ($map === null) {
             $map = $this->doCompile($routes);
