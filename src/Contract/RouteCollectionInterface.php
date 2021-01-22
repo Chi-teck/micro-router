@@ -5,8 +5,6 @@ namespace MicroRouter\Contract;
 
 interface RouteCollectionInterface extends \IteratorAggregate, \Countable, \ArrayAccess
 {
-    public const UNNAMED_ROUTE_PREFIX = 'unnamed_';
-
     /**
      * Returns a string that uniquely identifies the collection.
      *

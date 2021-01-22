@@ -61,13 +61,7 @@ final class Matcher implements MatcherInterface
                 continue;
             }
 
-            return new RoutingResult(
-                // The name of unnamed route should never bubble up.
-                \str_starts_with($record['name'], RouteCollection::UNNAMED_ROUTE_PREFIX)
-                    ? null : $record['name'],
-                $route,
-                $parameters,
-            );
+            return new RoutingResult($record['name'], $route, $parameters);
         }
 
         throw $exception ?? new ResourceNotFoundException();
