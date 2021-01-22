@@ -11,6 +11,9 @@ final class RouteCollection implements RouteCollectionInterface, \Stringable
 {
     private const UNNAMED_ROUTE_PREFIX = 'unnamed_';
 
+    /**
+     * @var \MicroRouter\Contract\RouteInterface[]
+     */
     private array $routes = [];
 
     public function __construct(private string $name = 'default') {}
@@ -109,7 +112,7 @@ final class RouteCollection implements RouteCollectionInterface, \Stringable
             $name = \str_starts_with($name, self::UNNAMED_ROUTE_PREFIX) ? 'unnamed' : $name;
             $output[] = $name;
             $output[] = \str_repeat('━', \strlen($name));
-            $output[] = $route;
+            $output[] = $route instanceof \Stringable ? $route : \print_r($route, true);
         }
         return \implode(\PHP_EOL, $output);
     }
